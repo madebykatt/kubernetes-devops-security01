@@ -20,11 +20,12 @@ pipeline {
     }
     stage('Docker Build and Push') {
       steps {
+        withDockerRegistry([credentialsId: "docker-hub",url: ""]){
           sh 'printenv'
-          sh 'sudo docker build -t madebykatt/numeric-app:""$GIT_COMMIT"" .'
-         sh 'docker push madebykatt/numeric-app:""$GIT_COMMIT""'
- 
+          sh 'sudo docker build -t kstatic/numeric-app:""$GIT_COMMIT"" .'
+         sh 'docker push kstatic/numeric-app:""$GIT_COMMIT""'
+        } 
+      }
+    } 
   }
-} 
-}
 }
